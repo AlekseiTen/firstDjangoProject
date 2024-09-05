@@ -23,6 +23,7 @@ class Product(models.Model):
     updated_at = models.DateTimeField(blank=True, null=True, verbose_name="Дата последнего изменения")
 
 
+
     def __str__(self):
         # Строковое отображение объекта
         return f'{self.name} {self.description}'
