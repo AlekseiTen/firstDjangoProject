@@ -21,6 +21,7 @@ class Product(models.Model):
     photo = models.ImageField(upload_to="product/photo", blank=True, null=True, verbose_name="Изображение продукта")
     created_at = models.DateTimeField(blank=True, null=True, verbose_name="Дата создания")
     updated_at = models.DateTimeField(blank=True, null=True, verbose_name="Дата последнего изменения")
+    manufactured_at = models.DateTimeField(blank=True, null=True, verbose_name="Дата производства продукта")
 
     def __str__(self):
         # Строковое отображение объекта
