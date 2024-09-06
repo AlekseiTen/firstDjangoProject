@@ -8,6 +8,14 @@
   }
 },
 {
+  "model": "catalog.category",
+  "pk": 2,
+  "fields": {
+    "name": "Мясная продукция",
+    "description": "не для веганов"
+  }
+},
+{
   "model": "catalog.product",
   "pk": 1,
   "fields": {
@@ -26,6 +34,30 @@
     "name": "картофель",
     "description": "",
     "category": null,
+    "photo": "",
+    "created_at": null,
+    "updated_at": null
+  }
+},
+{
+  "model": "catalog.product",
+  "pk": 3,
+  "fields": {
+    "name": "Колбаса",
+    "description": "Слабосолённая",
+    "category": 2,
+    "photo": "",
+    "created_at": null,
+    "updated_at": null
+  }
+},
+{
+  "model": "catalog.product",
+  "pk": 4,
+  "fields": {
+    "name": "Сосиски",
+    "description": "Копчённые",
+    "category": 2,
     "photo": "",
     "created_at": null,
     "updated_at": null
