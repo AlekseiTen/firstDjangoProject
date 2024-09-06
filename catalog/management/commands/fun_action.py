@@ -39,8 +39,8 @@ class Command(BaseCommand):
         for product in Command.json_read_products():
             product_for_create.append(
                 Product(name=product['name'], description=product['description'],
-                        photo=product['photo'], created_at=product[' created_at'],
-                        updated_at=product['updated_at'],
+                        photo=product['photo'], price=product['price'],
+                        created_at=product[' created_at'], updated_at=product['updated_at'],
                         # получаем категорию из базы данных для корректной связки объектов
                         category=Category.objects.get(pk=product['category']))
             )
