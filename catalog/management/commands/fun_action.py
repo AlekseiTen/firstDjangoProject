@@ -7,12 +7,12 @@ class Command(BaseCommand):
 
     @staticmethod
     def json_read_categories():
-        with open('catalog.json', 'r', encoding='utf-8') as file:
+        with open('catalog/management/commands/data/category.json', 'r', encoding='utf-8') as file:
             return json.load(file)
 
     @staticmethod
     def json_read_products():
-        with open('catalog.json', 'r', encoding='utf-8') as file:
+        with open('catalog/management/commands/data/product.json', 'r', encoding='utf-8') as file:
             return json.load(file)
 
     def handle(self, *args, **options):
@@ -28,8 +28,9 @@ class Command(BaseCommand):
 
         # Обходим все значения категорий из фиктсуры для получения информации об одном объекте
         for category in Command.json_read_categories():
+            category_fields = category["fields"]
             category_for_create.append(
-                Category(name=category['name'], description=category['description'])
+                Category(**category_fields)
             )
 
         # Создаем объекты в базе с помощью метода bulk_create()
@@ -37,10 +38,9 @@ class Command(BaseCommand):
 
         # Обходим все значения продуктов из фиктсуры для получения информации об одном объекте
         for product in Command.json_read_products():
+            product_fields = product["fields"]
             product_for_create.append(
-                Product(name=product['name'], description=product['description'],
-                        photo=product['photo'], price=product['price'],
-                        created_at=product[' created_at'], updated_at=product['updated_at'],
+                Product(**product_fields,
                         # получаем категорию из базы данных для корректной связки объектов
                         category=Category.objects.get(pk=product['category']))
             )
