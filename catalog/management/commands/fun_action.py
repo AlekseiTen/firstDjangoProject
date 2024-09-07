@@ -1,8 +1,6 @@
 from django.core.management import BaseCommand
 import json
-
 from django.db import connection
-
 from catalog.models import Category, Product
 
 
@@ -23,14 +21,14 @@ class Command(BaseCommand):
         self.reset_sequences()
 
         # Создайте списки для хранения объектов
-        product_for_create = []
         category_for_create = []
+        product_for_create = []
 
-        # Обходим все значения категорий из фиктсуры для получения информации об одном объекте
+        #
+        # # Обходим все значения категорий из фиктсуры для получения информации об одном объекте
         for category in Command.json_read_categories():
             category_fields = category["fields"]
             category_for_create.append(Category(**category_fields))
-
         # Создаем объекты в базе с помощью метода bulk_create()
         Category.objects.bulk_create(category_for_create)
 
@@ -38,18 +36,17 @@ class Command(BaseCommand):
         for product in Command.json_read_products():
             product_fields = product["fields"]
             category_id = product_fields.get('category')
-            # category = Category.objects.get(pk=category_id)
-            #print(category_id)
-
-            product_for_create.append(Product(category_id=category_id, **product_fields))
-
+            category_instance = Category.objects.get(pk=category_id)
+            if 'category' in product_fields:
+                del product_fields['category']
+            product_for_create.append(Product(category=category_instance, **product_fields))
         # Создаем объекты в базе с помощью метода bulk_create()
         Product.objects.bulk_create(product_for_create)
 
     def clean_database(self):
         """Очищаем базу данных"""
-        Product.objects.all().delete()
         Category.objects.all().delete()
+        Product.objects.all().delete()
 
     def reset_sequences(self):
         """Сбрасываем автоинкрементные значения таблиц"""
