@@ -1,7 +1,7 @@
 [
 {
   "model": "catalog.category",
-  "pk": 3,
+  "pk": 1,
   "fields": {
     "name": "Овощи",
     "description": "нужны для приготовления борща"
@@ -9,7 +9,7 @@
 },
 {
   "model": "catalog.category",
-  "pk": 4,
+  "pk": 2,
   "fields": {
     "name": "Фрукты",
     "description": "Можно не варить"
@@ -17,7 +17,7 @@
 },
 {
   "model": "catalog.category",
-  "pk": 5,
+  "pk": 3,
   "fields": {
     "name": "Молочка",
     "description": "Полезна для роста костей"
@@ -25,7 +25,7 @@
 },
 {
   "model": "catalog.category",
-  "pk": 6,
+  "pk": 4,
   "fields": {
     "name": "Мясная",
     "description": "Не для веганов"
