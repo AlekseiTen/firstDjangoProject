@@ -9,13 +9,8 @@ def products_list(request):
     context = {"products": products}
     return render(request, 'product_list.html', context)
 
-# def home(request):
-#     return render(request, 'product_list.html')
-#
-# def contacts(request):
-#     if request.method == 'POST':
-#         name = request.POST.get('name')
-#         phone = request.POST.get('phone')
-#         message = request.POST.get('message')
-#         print(f'{name} {phone} {message}')
-#     return render(request, 'contacts.html')
+
+def products_detail(request, pk):
+    product = Product.objects.get(pk=pk)
+    context = {"products": product}
+    return render(request, 'products_detail.html', context)
