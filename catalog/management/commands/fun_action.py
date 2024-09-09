@@ -24,8 +24,7 @@ class Command(BaseCommand):
         category_for_create = []
         product_for_create = []
 
-        #
-        # # Обходим все значения категорий из фиктсуры для получения информации об одном объекте
+        # Обходим все значения категорий из фиктсуры для получения информации об одном объекте
         for category in Command.json_read_categories():
             category_fields = category["fields"]
             category_for_create.append(Category(**category_fields))
@@ -39,7 +38,8 @@ class Command(BaseCommand):
             category_instance = Category.objects.get(pk=category_id)
             if 'category' in product_fields:
                 del product_fields['category']
-            product_for_create.append(Product(category=category_instance, **product_fields))
+            product_for_create.append(Product(**product_fields, category=category_instance))
+
         # Создаем объекты в базе с помощью метода bulk_create()
         Product.objects.bulk_create(product_for_create)
 
