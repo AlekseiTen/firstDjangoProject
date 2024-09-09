@@ -7,10 +7,10 @@ from catalog.models import Product
 def products_list(request):
     products = Product.objects.all()
     context = {"products": products}
-    return render(request, 'base.html', context)
+    return render(request, 'product_list.html', context)
 
 # def home(request):
-#     return render(request, 'home.html')
+#     return render(request, 'product_list.html')
 #
 # def contacts(request):
 #     if request.method == 'POST':
