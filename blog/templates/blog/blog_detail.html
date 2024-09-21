@@ -6,8 +6,9 @@
             <div class="col-md-6">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <p class="card-text"><strong>{{ blog.title }}</strong></p>
-                        <p class="card-text">{{ blog.body}}</p>
+                        <p class="card-text"><strong>Заголовок: {{ blog.title }}</strong></p>
+                        <p class="card-text">Описание блога: {{ blog.body}}</p>
+                        <p class="card-text">Количество просмотров: {{ blog.views_count}}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <a class="btn btn-primary" href="{% url 'blog:list' %}" 
