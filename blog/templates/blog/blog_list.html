@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ blog.title }}</h5>
                         <div class="btn-group">
-                            <a class="btn btn-primary" href="#" role="button">Посмотреть</a>
+                            <a class="btn btn-primary" href="{% url 'blog:view' blog.pk %}" role="button">Посмотреть</a>
                             <a class="btn btn-warning" href="#" role="button">Редактировать</a>
                             <a class="btn btn-danger" href="#" role="button">Удалить</a>
                         </div>

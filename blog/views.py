@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, DetailView
 
 from blog.models import Blog
 
@@ -11,4 +11,8 @@ class BlogCreateView(CreateView):
 
 
 class BlogListView(ListView):
+    model = Blog
+
+
+class BlogDetailView(DetailView):
     model = Blog
