@@ -24,7 +24,6 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name="Дата создания")
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name="Дата последнего изменения")
 
-
     class Meta:
         verbose_name = 'Продукт'  # Настройка для наименования одного объекта
         verbose_name_plural = 'Продукты'  # Настройка для наименования набора объектов
