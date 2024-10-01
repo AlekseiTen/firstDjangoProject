@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-
 from catalog.forms import ProductForm
 from catalog.models import Product
 
@@ -10,19 +8,31 @@ from catalog.models import Product
 # Create your views here.
 class ProductListView(ListView):
     model = Product
-    extra_context = {'list_name': 'Продукты'}
+    template_name = "catalog/product_list.html"
+    context_object_name = "product_list"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        for product in context["product_list"]:
+            product.active_version = product.versions.filter(is_current=True).first()
+        return context
 
 
 class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
+    template_name = "catalog/product_form.html"
     success_url = reverse_lazy("catalog:products_list")
 
 
 class ProductUpdateView(UpdateView):
     model = Product
     form_class = ProductForm
+    template_name = "catalog/product_form.html"
     success_url = reverse_lazy("catalog:products_list")
+
+    def get_success_url(self):
+        return reverse_lazy("catalog:product_update", kwargs={"pk": self.object.pk})
 
 
 class ProductDetailView(DetailView):
@@ -33,6 +43,7 @@ class ProductDetailView(DetailView):
 
 class ProductDeleteView(DeleteView):
     model = Product
+    template_name = "catalog/product_confirm_delete.html"
     success_url = reverse_lazy("catalog:products_list")
 
 
