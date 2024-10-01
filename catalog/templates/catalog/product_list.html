@@ -26,6 +26,8 @@
                         <p class="card-text">
                             <strong>Текущая версия:</strong> {{ product.active_version.version_name }} ({{ product.active_version.version_number }})
                         </p>
+                        {% else %}
+                            <p>Нет активной версии.</p>
                         {% endif %}
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
