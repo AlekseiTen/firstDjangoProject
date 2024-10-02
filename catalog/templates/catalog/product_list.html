@@ -32,6 +32,8 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <a class="btn btn-primary" href="{% url 'catalog:product_detail' product.pk %}" role="button">Просмотреть</a>
+                                <a class="btn btn-warning ms-10" href="{% url 'catalog:product_update' product.pk %}" role="button">Редактировать</a>
+                                <a class="btn btn-danger ms-10" href="{% url 'catalog:product_delete' product.pk %}" role="button">Удалить</a>
                             </div>
                         </div>
                     </div>

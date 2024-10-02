@@ -32,6 +32,9 @@ class ProductUpdateView(UpdateView):
     template_name = "catalog/product_form.html"
     success_url = reverse_lazy("catalog:products_list")
 
+    def get_success_url(self):
+        return reverse_lazy("catalog:product_update", kwargs={"pk": self.object.pk})
+
 
 class ProductDetailView(DetailView):
     model = Product
