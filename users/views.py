@@ -40,4 +40,3 @@ def email_verification(request, token):
     user.token = None
     user.save()
     return redirect(reverse("users:login"))
-
