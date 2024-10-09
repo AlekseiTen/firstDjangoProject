@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 
 class Category(models.Model):
     name = models.CharField(max_length=50, verbose_name="Наименование категории")
@@ -42,6 +44,7 @@ class Product(models.Model):
     updated_at = models.DateTimeField(
         auto_now=True, blank=True, null=True, verbose_name="Дата последнего изменения"
     )
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="products", blank=True, null=True)
 
     class Meta:
         verbose_name = "Продукт"  # Настройка для наименования одного объекта
