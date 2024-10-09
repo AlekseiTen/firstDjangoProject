@@ -14,6 +14,7 @@
                     {% else %}
                         <li><a href="{% url 'users:login' %}" class="text-white">Вход</a></li>
                     {% endif %}
+                    <li><a href="{% url 'users:register' %}" class="text-white">Регистрация</a></li>
                     <li><a href="{% url 'blog:list' %}" class="text-white">Блог</a></li>
                     <li><a href="{% url 'catalog:contacts' %}" class="text-white">Контакты</a></li>
                 </ul>
