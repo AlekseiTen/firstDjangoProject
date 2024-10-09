@@ -9,3 +9,4 @@ class UserCreateView(CreateView):
     model = User
     form_class = UserRegisterForm
     success_url = reverse_lazy("users:login")
+
