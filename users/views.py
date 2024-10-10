@@ -48,7 +48,9 @@ def email_verification(request, token):
 
 def generate_random_password(length=8):
     # Фун-ция кот.генерирует пароль
-    characters = string.ascii_letters + string.digits + string.punctuation  # Определяем возможные символы для пароля
+
+    # Определяем возможные символы для пароля
+    characters = string.ascii_letters + string.digits + string.punctuation
     password = ''  # Создаем пустую строку для пароля
 
     # Генерируем пароль
@@ -61,12 +63,14 @@ def generate_random_password(length=8):
 
 def reset_password(request):
     # ф-ция восстановления, пароля зарегистрированного пользователя
-    if request.method == 'POST':
-        email = request.POST.get('email')
+
+    if request.method == 'POST':  # Мы проверяем, является ли метод запроса POST.
+        email = request.POST.get('email')  # извлекаем email  из запроса
+
         try:
-            user = User.objects.get(email=email)
-            new_password = generate_random_password()
-            user.password = make_password(new_password)
+            user = User.objects.get(email=email)  # пытаемся получить пользователя по email
+            new_password = generate_random_password()  # Генерация нового пароля через ф-цию
+            user.password = make_password(new_password)  # Хеширование пароля
             user.save()
 
             # Отправка нового пароля на электронную почту
@@ -82,6 +86,7 @@ def reset_password(request):
 
         # Обработка случая, когда пользователь не найден
         except User.DoesNotExist:
-            return render(request, 'users/password_reset.html', {'error': 'Пользователь с таким email не найден.'})
 
+            return render(request, 'users/password_reset.html', {'error': 'Пользователь с таким email не найден.'})
+    # Если метод запроса не POST, а GET мы просто отображаем форму для восстановления пароля.
     return render(request, 'users/password_reset.html')
