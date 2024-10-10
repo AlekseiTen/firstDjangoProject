@@ -52,7 +52,6 @@ def generate_random_password(length=8):
     # Определяем возможные символы для пароля
     characters = string.ascii_letters + string.digits + string.punctuation
     password = ''  # Создаем пустую строку для пароля
-
     # Генерируем пароль
     for i in range(length):
         random_char = random.choice(characters)  # Выбираем случайный символ
@@ -86,7 +85,6 @@ def reset_password(request):
 
         # Обработка случая, когда пользователь не найден
         except User.DoesNotExist:
-
             return render(request, 'users/password_reset.html', {'error': 'Пользователь с таким email не найден.'})
     # Если метод запроса не POST, а GET мы просто отображаем форму для восстановления пароля.
     return render(request, 'users/password_reset.html')
