@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm
-from django.forms import forms, EmailField
+
 
 from catalog.forms import StyleFormMixin
 from users.models import User
