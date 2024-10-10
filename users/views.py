@@ -46,10 +46,10 @@ def email_verification(request, token):
 
 
 def generate_random_password(length=8):
-    # Определяем возможные символы для пароля
-    characters = string.ascii_letters + string.digits + string.punctuation
-    # Создаем пустую строку для пароля
-    password = ''
+    # Фун-ция кот.генерирует пароль
+    characters = string.ascii_letters + string.digits + string.punctuation # Определяем возможные символы для пароля
+    password = '' # Создаем пустую строку для пароля
+    
     # Генерируем пароль
     for i in range(length):
         random_char = random.choice(characters)  # Выбираем случайный символ
