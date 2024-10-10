@@ -1,4 +1,6 @@
+import random
 import secrets
+import string
 
 from django.contrib.auth.forms import PasswordResetForm
 from django.core.mail import send_mail
@@ -41,6 +43,19 @@ def email_verification(request, token):
     user.token = None
     user.save()
     return redirect(reverse("users:login"))
+
+
+def generate_random_password(length=8):
+    # Определяем возможные символы для пароля
+    characters = string.ascii_letters + string.digits + string.punctuation
+    # Создаем пустую строку для пароля
+    password = ''
+    # Генерируем пароль
+    for i in range(length):
+        random_char = random.choice(characters)  # Выбираем случайный символ
+        password += random_char  # Добавляем его к паролю
+
+    return password
 
 
 def reset_password(request):
