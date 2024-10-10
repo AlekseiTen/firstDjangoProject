@@ -3,6 +3,7 @@ import secrets
 import string
 
 from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.hashers import make_password
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy, reverse
@@ -47,9 +48,9 @@ def email_verification(request, token):
 
 def generate_random_password(length=8):
     # Фун-ция кот.генерирует пароль
-    characters = string.ascii_letters + string.digits + string.punctuation # Определяем возможные символы для пароля
-    password = '' # Создаем пустую строку для пароля
-    
+    characters = string.ascii_letters + string.digits + string.punctuation  # Определяем возможные символы для пароля
+    password = ''  # Создаем пустую строку для пароля
+
     # Генерируем пароль
     for i in range(length):
         random_char = random.choice(characters)  # Выбираем случайный символ
@@ -59,8 +60,28 @@ def generate_random_password(length=8):
 
 
 def reset_password(request):
-    if request.method == "POST":
-        form = PasswordResetForm(request.POST)
-    else:
-        form = PasswordResetForm()
-    return render(request, 'users/password_reset.html', {'form': form})
+    # ф-ция восстановления, пароля зарегистрированного пользователя
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        try:
+            user = User.objects.get(email=email)
+            new_password = generate_random_password()
+            user.password = make_password(new_password)
+            user.save()
+
+            # Отправка нового пароля на электронную почту
+            send_mail(
+                subject="Ваш новый пароль",
+                message=f"Ваш новый пароль: {new_password}",
+                from_email=EMAIL_HOST_USER,
+                recipient_list=[user.email],
+                fail_silently=False,
+            )
+            # Перенаправление на страницу входа после успешного восстановления
+            return redirect('users:login')
+
+        # Обработка случая, когда пользователь не найден
+        except User.DoesNotExist:
+            return render(request, 'users/password_reset.html', {'error': 'Пользователь с таким email не найден.'})
+
+    return render(request, 'users/password_reset.html')
