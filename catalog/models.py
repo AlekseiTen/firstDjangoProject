@@ -45,11 +45,18 @@ class Product(models.Model):
         auto_now=True, blank=True, null=True, verbose_name="Дата последнего изменения"
     )
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="products", blank=True, null=True)
+    is_published = models.BooleanField(default=False, verbose_name='Опубликован')
+
 
     class Meta:
         verbose_name = "Продукт"  # Настройка для наименования одного объекта
         verbose_name_plural = "Продукты"  # Настройка для наименования набора объектов
         ordering = ("name",)
+        permissions = [
+            ("can_unpublish_product", 'Can unpublish product'),
+            ("can_change_product_description", "Can change product description"),
+            ("can_change_product_category", "Can change product category"),
+        ]
 
     def __str__(self):
         # Строковое отображение объекта
