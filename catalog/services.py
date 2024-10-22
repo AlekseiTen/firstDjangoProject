@@ -4,6 +4,7 @@ from django.core.cache import cache
 from catalog.models import Product
 
 def get_cached_products():
+    "Получает данные по продуктам из кэша, если кэш пуст, иначе получает данные из БД"
     if not CACHE_ENABLED:
         Product.objects.all()
     key = 'products_list'
