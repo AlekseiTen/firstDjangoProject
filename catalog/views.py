@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
 from catalog.models import Product, Version
+from catalog.services import get_cached_products
 
 
 # Create your views here.
@@ -19,6 +20,9 @@ class ProductListView(ListView):
         for product in context["product_list"]:
             product.active_version = product.versions.filter(is_current=True).first()
         return context
+
+    def get_queryset(self):
+        return get_cached_products()
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
